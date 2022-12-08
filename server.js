@@ -65,6 +65,37 @@ const date = new Date();
       }]
     });
   }
+  
+    if(req.query.category){
+    //console.log(req.query.category)
+    data = await Article.find({
+      "$or": [{
+        category: {
+          $regex: req.query.category
+        }
+      }]
+    });
+  }
+
+  if(req.query.tag){
+    data = await Article.find({
+      "$or": [{
+        tags: {
+          $regex: req.query.tag
+        }
+      }]
+    });
+  }
+
+  if(req.query.keyword){
+    data = await Article.find({
+      "$or": [{
+        keywords: {
+          $regex: req.query.keyword
+        }
+      }]
+    });
+  }
 
 
   res.send(data);
@@ -121,7 +152,10 @@ app.post('/articles', (req, res) => {
     author: req.body.author,
     content: req.body.content,
     urlToImage: req.body.urlToImage,
-    publishedAt: req.body.publishedAt
+    publishedAt: req.body.publishedAt,
+    category: req.body.category,
+    tags: req.body.tags,
+    keywords: req.body.keywords
   });
   newArticle.save((err) => {
     if (!err) {
