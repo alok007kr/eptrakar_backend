@@ -21,6 +21,18 @@ const articleSchema = mongoose.Schema({
   publishedAt: {
     type: String,
     default: new Date().toJSON().slice(0, 10)
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  tags: {
+    type: String,
+    required: true
+  },
+  keywords: {
+    type: String,
+    required: true
   }
 });
 
